@@ -1,6 +1,18 @@
+/**
+  * Universidad de La Laguna
+  * Escuela Superior de Ingeniería y Tecnología
+  * Grado en Ingeniería Informática
+  * Asignatura: Algoritmos y Estructuras de Datos (2º curso)
+  * 
+  * @file tools.cc: Fichero con definición de métodos auxiliares del programa.
+  * @brief Contiene la definición de los métodos que ayudan a especificar la 
+  * utilización del programa.
+  */
+
 #include "tools.h"
 
-std::string cifrarCesar(const std::string& texto, int desplazamiento) {
+
+std::string CifrarCesar(const std::string& texto, int desplazamiento) {
   std::string textoCifrado = texto;
   for (char& c : textoCifrado) {
     if (isalpha(c)) {
@@ -11,74 +23,75 @@ std::string cifrarCesar(const std::string& texto, int desplazamiento) {
   return textoCifrado;
 }
 
-std::string descifrarCesar(const std::string& textoCifrado, int desplazamiento) {
-    return cifrarCesar(textoCifrado, 26 - desplazamiento);
+std::string DescifrarCesar(const std::string& textoCifrado, int desplazamiento) {
+    return CifrarCesar(textoCifrado, 26 - desplazamiento);
 }
 
-std::vector<Usuario> leerUsuarios(std::ifstream& file) { // Crea vector con todos los usuarios del archivo
-  std::vector<Usuario> usuarios;
-  std::string datos;
-  while (getline(file, datos)) {
-    if (!datos.empty()) {
-      Usuario usuario(datos);
-      usuarios.push_back(usuario);
+int GestionarInicioSesion(Database& datos, std::string& tipo_usuario, bool& sesion_iniciada) {
+  std::ofstream salida_usuario("bbdd.info", std::ios::app);
+  int opcion{0};
+  while (!sesion_iniciada) {
+    std::cout << "1. Registrarse\n2. Iniciar sesion\n-1. Salir\n\n";
+    std::cout << "Opcion: ";
+    std::cin >> opcion;
+    switch (opcion) {
+      case 1: { //Registrar
+        Usuario aux = datos.Registrar();
+        aux.WriteFile(salida_usuario);
+        datos.AgregarUsuario(aux);
+        break;
+      }
+      case 2: { //Iniciar sesión
+        if (IniciarSesion(datos, tipo_usuario)) {
+          sesion_iniciada = true;
+          return 1;
+        }
+        else {
+          std::cout << "Inicio de sesión no satisfactorio\n";
+        }
+        break;
+      }
+      case -1: { // Salir
+        std::cout << "Programa terminado.\n\n" << std::endl;
+        return 0;
+      }
+      case 50: { // Esto no es importante, solo es para mostrar los usuarios registrados
+        for (Usuario& usuario : datos.usuarios()) {
+          std::cout << usuario.usuario() << " " << DescifrarCesar(usuario.contrasena(), 3) << std::endl;
+        }
+        break;
+      }
     }
   }
-  return usuarios;
 }
 
-Usuario Registrar() {
-  std::string nombre, apellido, usuario, email, contrasena;
-  std::cout << "Nombre: ";
-  std::cin >> nombre;
-  std::cout << "Apellido: ";
-  std::cin >> apellido;
-  std::cout << "Usuario: ";
-  std::cin >> usuario;
-  std::cout << "Email: ";
-  std::cin >> email;
-  std::cout << "Contrasena: ";
-  std::cin >> contrasena;
-  contrasena = cifrarCesar(contrasena, 3);
-  Usuario usuario1(nombre, apellido, usuario, email, contrasena);
-  return usuario1;
-}
-
-int buscarUsuario(std::vector<Usuario>& usuarios, std::string usuario) { // Busca usuario en el vector y devuelve la posicion
-  for (int i = 0; i < usuarios.size(); i++) {
-    if (usuarios[i].getUsuario() == usuario) {
-      return i;
-    }
-  }
-  return -1;
-}
-
-bool IniciarSesion(std::vector<Usuario>& usuarios) {
+bool IniciarSesion(Database& datos, std::string& tipo_usuario) {
   std::string usuario, contrasena;
-  std::cout << "Usuario: ";
+  std::cout << "Introduzca su nombre de usuario: ";
   std::cin >> usuario;
-  std::cout << "Contrasena: ";
+  std::cout << "Introduzca su contraseña: ";
   std::cin >> contrasena;
-  contrasena = cifrarCesar(contrasena, 3);
-  int pos = buscarUsuario(usuarios, usuario);
+  contrasena = CifrarCesar(contrasena, 3);
+  int pos = datos.BuscarUsuario(usuario);
   if (pos != -1) {
-    if (usuarios[pos].getContrasena() == contrasena) {
+    if (datos.usuarios()[pos].contrasena() == contrasena) {
+      tipo_usuario = datos.usuarios()[pos].tipo_usuario();
       return true;
     }
     int contador = 0;
     while (contador < 3) { // Tres intentos contraseña
       std::cout << "Contrasena incorrecta" << std::endl;
-      std::cout << "Contrasena: ";
+      std::cout << "Introduzca de nuevo la contraseña. (Intentos restantes: " << contador << "): ";
       std::cin >> contrasena;
-      contrasena = cifrarCesar(contrasena, 3);
-      if (usuarios[pos].getContrasena() == contrasena) {
+      contrasena = CifrarCesar(contrasena, 3);
+      if (datos.usuarios()[pos].contrasena() == contrasena) {
         return true;
       }
       contador++;
     }
-    std::cout << "Acceso denegado" << std::endl;
+    std::cout << "Acceso denegado. Ha agotado los intentos de inicio de sesión." << std::endl;
     return false;
   }
-  std::cout << "Usuario no encontrado" << std::endl;
+  std::cout << "Error: Usuario inexistente." << std::endl;
   return false;
 }
