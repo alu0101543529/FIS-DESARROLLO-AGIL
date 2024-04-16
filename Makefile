@@ -8,7 +8,7 @@ CXX = g++
 CXXFLAGS = -std=c++11
 
 # Archivos fuente
-SOURCES = main.cc usuario.cc tools.cc
+SOURCES = main.cc usuario.cc database.cc
 
 # Archivos objeto generados durante la compilación
 OBJECTS = $(SOURCES:.cc=.o)
