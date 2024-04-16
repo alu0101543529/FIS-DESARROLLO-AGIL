@@ -1,3 +1,19 @@
+/**
+  * Universidad de La Laguna
+  * Escuela Superior de Ingeniería y Tecnología
+  * Grado en Ingeniería Informática
+  * Asignatura: Fundamentos de Ingeniería del Software (2º curso)
+  * 
+  * @file library_main.cc: Programa cliente.
+  * @author Enmanuel Vegas (alu0101281698@ull.edu.es)
+  * @brief Contiene la función main del proyecto 'sort', que 
+  * usa las clases NIF, Sequence y SortMethod para gestionar la creación de obje-
+  * tos que permitan ordenar secuencias aplicando distintos algoritmos.
+  * Compilación: Ejecutar 'make' en directorio ./src
+  * Ejecución: ./sort -size 10 -ord 2 -init random -trace y
+  * Ejecución: ./sort -size 25 -ord 1 -init file prueba.txt -trace y
+  */
+
 #include <iostream>
 #include "usuario.h"
 #include <fstream>
