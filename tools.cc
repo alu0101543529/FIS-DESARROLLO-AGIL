@@ -78,16 +78,17 @@ bool IniciarSesion(Database& datos, std::string& tipo_usuario) {
       tipo_usuario = datos.usuarios()[pos].tipo_usuario();
       return true;
     }
-    int contador = 0;
-    while (contador < 3) { // Tres intentos contraseña
+    int contador = 3;
+    while (contador >= 0) { // Tres intentos contraseña
       std::cout << "Contrasena incorrecta" << std::endl;
       std::cout << "Introduzca de nuevo la contraseña. (Intentos restantes: " << contador << "): ";
       std::cin >> contrasena;
       contrasena = CifrarCesar(contrasena, 3);
       if (datos.usuarios()[pos].contrasena() == contrasena) {
+        tipo_usuario = datos.usuarios()[pos].tipo_usuario();
         return true;
       }
-      contador++;
+      contador--;
     }
     std::cout << "Acceso denegado. Ha agotado los intentos de inicio de sesión." << std::endl;
     return false;

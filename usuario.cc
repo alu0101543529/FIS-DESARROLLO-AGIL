@@ -34,6 +34,6 @@ Usuario::Usuario(std::string datos) {
 }
 
 void Usuario::WriteFile(std::ofstream& file) {
-  file << std::endl << nombre_ << " " << apellido_1_ << apellido_2_ << " " 
+  file << std::endl << nombre_ << " " << apellido_1_ << " " << apellido_2_ << " " 
   << usuario_ << " " << email_ << " " << contrasena_ << std::endl;
 }

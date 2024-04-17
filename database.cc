@@ -67,6 +67,7 @@ Usuario Database::Registrar() {
 int Database::BuscarUsuario(std::string usuario) { // Busca usuario en el vector y devuelve la posicion
   for (int i{0}; i < this->usuarios_.size(); i++) {
     if (usuarios_[i].usuario() == usuario) {
+      //std::cout << usuarios_[i].usuario() << std::endl;
       return i;
     }
   }
