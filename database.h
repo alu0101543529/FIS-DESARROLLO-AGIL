@@ -2,17 +2,15 @@
   * Universidad de La Laguna
   * Escuela Superior de Ingeniería y Tecnología
   * Grado en Ingeniería Informática
-  * Asignatura: Algoritmos y Estructuras de Datos Avanzadas (2º curso)
+  * Asignatura: Fundamentos de Ingenieria del Software
   * 
-  * @file sort_library.h: Fichero de definición de librería para algoritmos de 
-  * ordenación.
+  * @file database.h
   * @author Enmanuel Vegas (alu0101281698@ull.edu.es)
-  * @brief Contiene la definición de los métodos que implementan algoritmos de 
-  * ordenación.
+  * @date 23/04/2024
+  * @brief Este fichero contiene la declaración de los métodos de la clase Database.
   */
 
-#ifndef DATABASE_H
-#define DATABASE_H
+#pragma once
 
 #include <vector>
 
@@ -30,7 +28,4 @@ class Database {
 
  private:
   std::vector<Usuario> usuarios_;
-
 };
-
-#endif

@@ -2,11 +2,12 @@
   * Universidad de La Laguna
   * Escuela Superior de Ingeniería y Tecnología
   * Grado en Ingeniería Informática
-  * Asignatura: Algoritmos y Estructuras de Datos (2º curso)
+  * Asignatura: Fundamentos de Ingenieria del Software
   * 
-  * @file tools.cc: Fichero con definición de métodos auxiliares del programa.
-  * @brief Contiene la definición de los métodos que ayudan a especificar la 
-  * utilización del programa.
+  * @file tools.cc
+  * @author Raúl González Acosta (alu0101543529@ull.edu.es)
+  * @date 23/04/2024
+  * @brief Este fichero contiene la definición de funciones generales.
   */
 
 #include "tools.h"

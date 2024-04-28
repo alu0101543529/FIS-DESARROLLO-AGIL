@@ -2,12 +2,12 @@
   * Universidad de La Laguna
   * Escuela Superior de Ingeniería y Tecnología
   * Grado en Ingeniería Informática
-  * Asignatura: Fundamentos de Ingeniería del Software (2º curso)
+  * Asignatura: Fundamentos de Ingenieria del Software
   * 
-  * @file library_main.cc: Programa cliente.
-  * @brief Contiene la función main del proyecto 'library', que 
-  * usa las clases ___ para gestionar las reservas y usuarios de una biblioteca.
-  * Compilación: Makefile
+  * @file usuario.h
+  * @date 23/04/2024
+  * @brief Este fichero contiene el programa principal.
+  * @compilation: make
   */
 
 #include <iostream>

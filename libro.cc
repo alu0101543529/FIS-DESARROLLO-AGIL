@@ -2,10 +2,12 @@
   * Universidad de La Laguna
   * Escuela Superior de Ingeniería y Tecnología
   * Grado en Ingeniería Informática
-  * Asignatura: Fundamentos de ingenieria del software (2º curso)
+  * Asignatura: Fundamentos de Ingenieria del Software
   * 
-  * @file libro.cc: Fichero de definicion de la clase Libro.
+  * @file libro.cc
   * @author Daniel Enrique Gómez Alcalá (alu0101547961@ull.edu.es)
+  * @date 23/04/2024
+  * @brief Este fichero contiene la definición de los métodos de la clase Libro.
   */
 
 #include "libro.h"

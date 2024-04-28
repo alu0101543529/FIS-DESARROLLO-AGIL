@@ -2,10 +2,12 @@
   * Universidad de La Laguna
   * Escuela Superior de Ingeniería y Tecnología
   * Grado en Ingeniería Informática
-  * Asignatura: Fundamentos de ingenieria del software (2º curso)
+  * Asignatura: Fundamentos de Ingenieria del Software
   * 
-  * @file database_libros.cc: Fichero de definición de la clase DatabaseLibros.
+  * @file database_libros.cc
   * @author Daniel Enrique Gómez Alcalá (alu0101547961@ull.edu.es)
+  * @date 23/04/2024
+  * @brief Este fichero contiene la definición de los métodos de la clase DatabaseLibros.
   */
 
 #include "database_libros.h"
@@ -13,10 +15,10 @@
 DatabaseLibros::DatabaseLibros(std::ifstream& input) {
   std::string datos;
   while (getline(input, datos)) {
-      if (!datos.empty()) {
+    if (!datos.empty()) {
       Libro libro(datos);
       this->libros_.push_back(libro);
-      }
+    }
   }
 }
 

@@ -2,11 +2,12 @@
   * Universidad de La Laguna
   * Escuela Superior de Ingeniería y Tecnología
   * Grado en Ingeniería Informática
-  * Asignatura: Algoritmos y Estructuras de Datos Avanzadas (2º curso)
+  * Asignatura: Fundamentos de Ingenieria del Software
   * 
-  * @file nif.cc: Fichero de definición de la clase NIF.
+  * @file database.cc
   * @author Enmanuel Vegas (alu0101281698@ull.edu.es)
-  * @brief Contiene la definición de los métodos de la clase NIF.
+  * @date 23/04/2024
+  * @brief Este fichero contiene la definición de los métodos de la clase Database.
   */
 
  #include "database.h"
@@ -14,8 +15,6 @@
 Database::Database(std::ifstream& input) {
   LeerUsuarios(input);
 }
-
-
 
 void Database::LeerUsuarios(std::ifstream& file) { // Crea vector con todos los usuarios del archivo
   std::string datos;
