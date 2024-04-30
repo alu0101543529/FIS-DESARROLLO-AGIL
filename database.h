@@ -5,7 +5,6 @@
   * Asignatura: Fundamentos de Ingenieria del Software
   * 
   * @file database.h
-  * @author Enmanuel Vegas (alu0101281698@ull.edu.es)
   * @date 23/04/2024
   * @brief Este fichero contiene la declaración de los métodos de la clase Database.
   */
@@ -20,12 +19,17 @@
 class Database {
  public:
   Database(std::ifstream&);
-  Usuario Registrar();
-  std::vector<Usuario> usuarios() { return usuarios_; }
-  int BuscarUsuario(std::string);
-  void LeerUsuarios(std::ifstream&);
-  void AgregarUsuario(Usuario aux) { this->usuarios_.push_back(aux); }
+  std::ifstream& file() { return file_; }
+  virtual int BuscarElemento(std::string&) = 0;
+  virtual void AgregarElemento() = 0;
+  virtual void EliminarElemento() = 0;
+
+
+  // int BuscarUsuario(std::string);
+  // void LeerUsuarios(std::ifstream&);
+  // void AgregarUsuario(Usuario aux) { this->usuarios_.push_back(aux); }
 
  private:
-  std::vector<Usuario> usuarios_;
+  virtual void LeerElementos() = 0;
+  std::ifstream& file_;
 };

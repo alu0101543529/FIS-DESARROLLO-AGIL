@@ -5,7 +5,6 @@
   * Asignatura: Fundamentos de Ingenieria del Software
   * 
   * @file tools.cc
-  * @author Raúl González Acosta (alu0101543529@ull.edu.es)
   * @date 23/04/2024
   * @brief Este fichero contiene la definición de funciones generales.
   */

@@ -42,7 +42,8 @@ int main() {
     }
     else if (tipo_usuario == "cliente") { // Menú cliente
       while (opcion != 0) {
-        std::cout << "1. Modificar fecha reserva.\n2. Crear reserva\n3. Mostrar reservas\n4. Mostrar catálogo\n0. Salir \n";
+        std::cout << "1. Modificar fecha reserva.\n2. Crear reserva\n3. Mostrar "
+        "reservas\n4. Mostrar catálogo\n0. Salir \n";
         std::cout << "Elija opción: ";  
         std::cin >> opcion;
         switch (opcion) {

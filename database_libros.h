@@ -5,7 +5,6 @@
   * Asignatura: Fundamentos de Ingenieria del Software
   * 
   * @file database_libros.h
-  * @author Daniel Enrique Gómez Alcalá (alu0101547961@ull.edu.es)
   * @date 23/04/2024
   * @brief Este fichero contiene la declaración de los métodos de la clase DatabaseLibros.
   */
@@ -19,7 +18,7 @@
 #include <sstream>
 #include "libro.h"
 
-class DatabaseLibros {
+class DatabaseLibros : public Database {
  public:
   DatabaseLibros(std::ifstream& input);
   int BuscarLibro(std::string titulo);

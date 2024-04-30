@@ -5,7 +5,6 @@
   * Asignatura: Fundamentos de Ingenieria del Software
   * 
   * @file usuario.h
-  * @author Enmanuel Vegas (alu0101281698@ull.edu.es)
   * @date 23/04/2024
   * @brief Este fichero contiene la declaración de los métodos de la clase Usuario.
   */
@@ -29,19 +28,14 @@ struct DatosUsuario {
 
 class Usuario {
  public:
-  Usuario() { }
   Usuario(DatosUsuario input);
-  Usuario(std::string);
-  std::string usuario() { return usuario_; }
-  std::string contrasena() { return contrasena_; }
-  std::string tipo_usuario() { return tipo_usuario_; }
+  Usuario(std::string&);
+  std::string usuario() { return informacion_.usuario; }
+  std::string contrasena() { return informacion_.contrasena; }
+  std::string tipo_usuario() { return informacion_.tipo_usuario; }
+  std::string email() { return informacion_.email; }
   void WriteFile(std::ofstream&);
+ 
  private:
-  std::string nombre_;
-  std::string apellido_1_;
-  std::string apellido_2_;
-  std::string usuario_;
-  std::string email_;
-  std::string contrasena_;
-  std::string tipo_usuario_;
+  DatosUsuario informacion_;
 };
