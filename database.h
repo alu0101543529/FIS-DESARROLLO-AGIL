@@ -14,14 +14,12 @@
 #include <vector>
 #include <fstream>
 
-#include "tools.h"
-
 class Database {
  public:
   Database(std::ifstream& input, std::ofstream& output) : input_stream_(input),
   output_stream_(output) { }
   std::ifstream& input_stream() { return input_stream_; }
-  virtual int BuscarElemento(std::string&) = 0;
+  virtual int BuscarElemento(std::string&, int indice_inicio = 0) = 0;
   virtual bool AgregarElemento() = 0;
   virtual void EliminarElemento() = 0;
   virtual void WriteFile() = 0;

@@ -26,7 +26,7 @@ bool DatabaseUsuarios::AgregarElemento() {
   DatosUsuario datos_nuevos;
   std::cout << "Introduzca un nombre de usuario: ";
   std::cin >> datos_nuevos.usuario;
-  if (this->BuscarElemento(datos_nuevos.usuario) == -1) {
+  if (this->BuscarElemento(datos_nuevos.usuario) != -1) {
     std::cout << "Usuario ya existe!\n";
     return false;
   }
@@ -58,6 +58,7 @@ bool DatabaseUsuarios::AgregarElemento() {
       std::cout << "Tipo de usuario no válido. Opciones: administrador, cliente, bibliotecario\n";
     }
   }
+  std::cout << "\n\nUsuario registrado correctamente\n";
   Usuario nuevo_usuario(datos_nuevos);
   this->usuarios_.push_back(nuevo_usuario);
   return true;
@@ -109,8 +110,8 @@ bool DatabaseUsuarios::IniciarSesion(std::string& tipo_usuario) {
 }
 
 
-int DatabaseUsuarios::BuscarElemento(std::string& nombre_usuario) {
-  for (int i{0}; i < this->usuarios_.size(); i++) {
+int DatabaseUsuarios::BuscarElemento(std::string& nombre_usuario, int busqueda_inicio) {
+  for (int i{busqueda_inicio}; i < this->usuarios_.size(); i++) {
     if (usuarios_[i].usuario() == nombre_usuario) {
       return i;
     }
@@ -141,18 +142,4 @@ std::ostream& operator<<(std::ostream& os, DatabaseUsuarios& db) {
   }
   os << std::endl;
   return os;
-}
-
-
-void DatabaseUsuarios::LeerElementos() {
-  if (!this->input_stream_.is_open()) {
-    std::cerr << "Error opening the file!" << std::endl; 
-    return; 
-  } 
-  std::string linea; 
-  while (std::getline(this->input_stream_, linea)) { 
-    Usuario nuevo(linea);
-    this->usuarios_.push_back(nuevo);
-  } 
-  return;
 }

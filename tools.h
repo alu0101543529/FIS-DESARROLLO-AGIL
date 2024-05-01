@@ -12,7 +12,7 @@
 #pragma once
 
 class DatabaseUsuarios;
-// #include "database_libros.h"
+
 #include "database_usuarios.h"
 
 std::string DescifrarCesar(const std::string&, int);

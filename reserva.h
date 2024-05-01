@@ -11,18 +11,22 @@
 
 #pragma once
 
-#include "libro.h"
-#include "usuario.h"
-
-struct DatosReserva {
-  Libro ejemplar;
-  Usuario usuario;
-};
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 
 struct Date {
   int dia;
   int mes;
-  int año;
+  int anyo;
+};
+
+struct DatosReserva {
+  std::string ejemplar;
+  std::string usuario;
+  Date fecha_caducidad;
+  Date fecha_entrada;  
 };
 
 class Reserva {
@@ -31,10 +35,12 @@ class Reserva {
   Reserva(std::string);
   Date& fecha_caducidad() { return fecha_caducidad_; }
   Date fecha_caducidad() const { return fecha_caducidad_; }
-  Libro ejemplar() { return ejemplar_; }
+  std::string ejemplar() { return ejemplar_; }
+  std::string nombre_usuario() { return nombre_usuario_; }
   void WriteFile(std::ofstream&);
  private:
+  std::string ejemplar_;
+  std::string nombre_usuario_;
   Date fecha_caducidad_;
   Date fecha_entrada_;
-  Libro ejemplar_;
 };

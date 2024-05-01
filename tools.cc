@@ -54,9 +54,7 @@ bool GestionarInicioSesion(DatabaseUsuarios& datos, std::string& tipo_usuario, b
         return false;
       }
       case 50: { // Esto no es importante, solo es para mostrar los usuarios registrados
-        for (Usuario& usuario : datos.usuarios()) {
-          std::cout << usuario.usuario() << " " << DescifrarCesar(usuario.contrasena(), 3) << std::endl;
-        }
+        std::cout << datos;
         break;
       }
     }

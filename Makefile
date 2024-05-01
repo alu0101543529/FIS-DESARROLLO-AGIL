@@ -16,7 +16,7 @@ CXX = g++
 CXXFLAGS = -std=c++11
 
 # Archivos fuente
-SOURCES = library_main.cc usuario.cc tools.cc database_usuarios.cc
+SOURCES = library_main.cc usuario.cc tools.cc database_usuarios.cc reserva.cc database_reservas.cc
 
 # Archivos objeto generados durante la compilación
 OBJECTS = $(SOURCES:.cc=.o)
@@ -35,6 +35,6 @@ clean:
 
 # Regla para limpiar los archivos generados por la compilación y limpiar terminal
 clmake:
+	clear
 	make
 	rm -f $(OBJECTS)
-	clear

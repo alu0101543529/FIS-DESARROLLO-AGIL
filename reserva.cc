@@ -6,34 +6,36 @@
   * 
   * @file usuario.cc
   * @date 23/04/2024
-  * @brief Este fichero contiene la definición de los métodos de la clase Usuario.
+  * @brief Este fichero contiene la definición de los métodos de la clase Reserva.
   */
  
-#include "usuario.h"
+#include "reserva.h"
 
-Usuario::Usuario(DatosUsuario input) {
-  nombre_ = input.nombre;
-  apellido_1_ = input.apellido_1;
-  apellido_2_ = input.apellido_1;
-  usuario_ = input.usuario;
-  email_ = input.email;
-  contrasena_ = input.contrasena;
-  tipo_usuario_ = input.tipo_usuario;
+Reserva::Reserva(DatosReserva input) {
+  this->ejemplar_ = input.ejemplar;
+  this->nombre_usuario_ = input.usuario;
+  this->fecha_caducidad_ = input.fecha_caducidad;
+  this->fecha_entrada_ = input.fecha_entrada;
 }
 
-Usuario::Usuario(std::string datos) {
+Reserva::Reserva(std::string datos) {
   std::stringstream ss(datos);
-  std::string nombre, apellido_1, apellido_2, usuario, email, contrasena;
-  ss >> nombre >> apellido_1 >> apellido_2 >> usuario >> email >> contrasena;  
-  nombre_ = nombre;
-  apellido_1_ = apellido_1;
-  apellido_2_ = apellido_2;
-  usuario_ = usuario;
-  email_ = email;
-  contrasena_ = contrasena;
+  std::string usuario, ejemplar;
+  int dia_entrada, mes_entrada, anyo_entrada, dia_caducidad, mes_caducidad, anyo_caducidad;
+  ss >> usuario >> ejemplar >> dia_entrada >> mes_entrada >> anyo_entrada >> dia_caducidad;
+  ss >> mes_caducidad >> anyo_caducidad;
+  nombre_usuario_ = usuario;
+  ejemplar_ = ejemplar;
+  fecha_entrada_.dia = dia_entrada;
+  fecha_entrada_.mes = mes_entrada;
+  fecha_entrada_.anyo = anyo_entrada;
+  fecha_caducidad_.dia = dia_caducidad;
+  fecha_caducidad_.mes = mes_caducidad;
+  fecha_caducidad_.anyo = anyo_caducidad;
 }
 
-void Usuario::WriteFile(std::ofstream& file) {
-  file << std::endl << nombre_ << " " << apellido_1_ << " " << apellido_2_ << " " 
-  << usuario_ << " " << email_ << " " << contrasena_ << std::endl;
+void Reserva::WriteFile(std::ofstream& file) {
+  file << std::endl <<  nombre_usuario_ << " " << ejemplar_ << " " << fecha_entrada_.dia;
+  file << " " << fecha_entrada_.mes << " " << fecha_entrada_.anyo << " " << 
+  fecha_caducidad_.dia << " " << fecha_caducidad_.mes << " " << fecha_caducidad_.anyo;
 }

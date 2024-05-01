@@ -4,7 +4,7 @@
   * Grado en Ingeniería Informática
   * Asignatura: Fundamentos de Ingenieria del Software
   * 
-  * @file database_usuarios.h
+  * @file database_reservas.h
   * @date 23/04/2024
   * @brief Este fichero contiene la declaración de los métodos de la clase DatabaseLibros.
   */
@@ -12,14 +12,16 @@
 #pragma once
 
 #include "database.h"
-#include "usuario.h"
+#include "reserva.h"
 
-class DatabaseUsuarios : public Database {
+class DatabaseReservas : public Database {
  public:
 
-  std::vector<Usuario> usuarios() const { return this->usuarios_; }
+  std::vector<Reserva> reservas() const { return this->reservas_; }
   
-  DatabaseUsuarios(std::ifstream& input, std::ofstream& output);
+  DatabaseReservas(std::ifstream& input, std::ofstream& output);
+
+  int BuscarReserva(std::string& nombre_usuario, std::string& ejemplar);
 
   int BuscarElemento(std::string& nombre_elemento, int busqueda_inicio = 0);
 
@@ -27,12 +29,12 @@ class DatabaseUsuarios : public Database {
 
   void EliminarElemento();
 
-  bool IniciarSesion(std::string& tipo_usuario);
+  void ModificarReserva();
 
   void WriteFile();
 
-  friend std::ostream& operator<<(std::ostream& os, DatabaseUsuarios& db);
+  friend std::ostream& operator<<(std::ostream& os, DatabaseReservas& db);
 
  private:
-  std::vector<Usuario> usuarios_;
+  std::vector<Reserva> reservas_;
 };
