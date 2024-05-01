@@ -11,11 +11,10 @@
 
 #pragma once
 
-class Database;
-
-#include "database.h"
+class DatabaseUsuarios;
+// #include "database_libros.h"
+#include "database_usuarios.h"
 
 std::string DescifrarCesar(const std::string&, int);
 std::string CifrarCesar(const std::string&, int);  
-int GestionarInicioSesion(Database& datos, std::string& tipo_usuario, bool& sesion_iniciada);
-bool IniciarSesion(Database& datos, std::string&);
+bool GestionarInicioSesion(DatabaseUsuarios& datos, std::string& tipo_usuario, bool& sesion_iniciada);

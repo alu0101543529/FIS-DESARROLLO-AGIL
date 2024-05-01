@@ -12,24 +12,21 @@
 #pragma once
 
 #include <vector>
+#include <fstream>
 
-#include "usuario.h"
 #include "tools.h"
 
 class Database {
  public:
-  Database(std::ifstream&);
-  std::ifstream& file() { return file_; }
+  Database(std::ifstream& input, std::ofstream& output) : input_stream_(input),
+  output_stream_(output) { }
+  std::ifstream& input_stream() { return input_stream_; }
   virtual int BuscarElemento(std::string&) = 0;
-  virtual void AgregarElemento() = 0;
+  virtual bool AgregarElemento() = 0;
   virtual void EliminarElemento() = 0;
+  virtual void WriteFile() = 0;
 
-
-  // int BuscarUsuario(std::string);
-  // void LeerUsuarios(std::ifstream&);
-  // void AgregarUsuario(Usuario aux) { this->usuarios_.push_back(aux); }
-
- private:
-  virtual void LeerElementos() = 0;
-  std::ifstream& file_;
+ protected:
+  std::ifstream& input_stream_;
+  std::ofstream& output_stream_;
 };

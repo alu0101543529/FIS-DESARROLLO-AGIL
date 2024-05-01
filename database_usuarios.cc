@@ -11,7 +11,8 @@
 
 #include "database_usuarios.h"
 
-DatabaseUsuarios::DatabaseUsuarios(std::ifstream& input) : Database(input) {
+DatabaseUsuarios::DatabaseUsuarios(std::ifstream& input, std::ofstream& output) 
+: Database(input, output) {
   std::string datos;
   while (getline(input, datos)) {
     if (!datos.empty()) {
@@ -21,16 +22,20 @@ DatabaseUsuarios::DatabaseUsuarios(std::ifstream& input) : Database(input) {
   }
 }
 
-void DatabaseUsuarios::AgregarElemento() {
+bool DatabaseUsuarios::AgregarElemento() {
   DatosUsuario datos_nuevos;
+  std::cout << "Introduzca un nombre de usuario: ";
+  std::cin >> datos_nuevos.usuario;
+  if (this->BuscarElemento(datos_nuevos.usuario) == -1) {
+    std::cout << "Usuario ya existe!\n";
+    return false;
+  }
   std::cout << "Introduzca su nombre: ";
   std::cin >> datos_nuevos.nombre;
   std::cout << "Introduzca el primer apellido: ";
   std::cin >> datos_nuevos.apellido_1;
   std::cout << "Introduzca el segundo apellido: ";
   std::cin >> datos_nuevos.apellido_2;
-  std::cout << "Introduzca un nombre de usuario: ";
-  std::cin >> datos_nuevos.usuario;
   std::cout << "Introduzca su e-mail: ";
   std::cin >> datos_nuevos.email;
   std::string contrasena_comprobar{"."};
@@ -55,6 +60,7 @@ void DatabaseUsuarios::AgregarElemento() {
   }
   Usuario nuevo_usuario(datos_nuevos);
   this->usuarios_.push_back(nuevo_usuario);
+  return true;
 }
 
 void DatabaseUsuarios::EliminarElemento() {
@@ -65,8 +71,41 @@ void DatabaseUsuarios::EliminarElemento() {
   std::cin >> email;
   int indice_borrar{BuscarElemento(usuario)};
   if (this->usuarios_[indice_borrar].email() == email) {
-    this->usuarios_.erase(indice_borrar);
+    this->usuarios_.erase(this->usuarios_.begin() + indice_borrar);
   }
+}
+
+
+bool DatabaseUsuarios::IniciarSesion(std::string& tipo_usuario) {
+  std::string usuario, contrasena;
+  std::cout << "Introduzca su nombre de usuario: ";
+  std::cin >> usuario;
+  std::cout << "Introduzca su contraseña: ";
+  std::cin >> contrasena;
+  contrasena = CifrarCesar(contrasena, 3);
+  int pos = BuscarElemento(usuario);
+  if (pos != -1) {
+    if (this->usuarios()[pos].contrasena() == contrasena) {
+      tipo_usuario = this->usuarios()[pos].tipo_usuario();
+      return true;
+    }
+    int contador = 3;
+    while (contador >= 0) { // Tres intentos para contraseña
+      std::cout << "Contrasena incorrecta" << std::endl;
+      std::cout << "Introduzca de nuevo la contraseña. (Intentos restantes: " << contador << "): ";
+      std::cin >> contrasena;
+      contrasena = CifrarCesar(contrasena, 3);
+      if (this->usuarios()[pos].contrasena() == contrasena) {
+        tipo_usuario = this->usuarios()[pos].tipo_usuario();
+        return true;
+      }
+      contador--;
+    }
+    std::cout << "Acceso denegado. Ha agotado los intentos de inicio de sesión." << std::endl;
+    return false;
+  }
+  std::cout << "Error: Usuario inexistente." << std::endl;
+  return false;
 }
 
 
@@ -79,6 +118,20 @@ int DatabaseUsuarios::BuscarElemento(std::string& nombre_usuario) {
   return -1;
 }
 
+void DatabaseUsuarios::WriteFile() {
+  if (this->output_stream_.is_open()) {
+  for (int i{0}; i < this->usuarios_.size(); i++) {
+    this->usuarios_[i].WriteFile(output_stream_);
+  }
+  output_stream_.close(); // close the file when done
+  std::cout << "Fichero de Usuarios sobreescrito\n";
+  }
+  else {
+    std::cerr << "Error opening file\n";
+  }
+  return;
+}
+
 std::ostream& operator<<(std::ostream& os, DatabaseUsuarios& db) {
   os << std::endl;
   std::cout << "\033[1mRegistro de usuarios:\033[0m\n\n";
@@ -88,4 +141,18 @@ std::ostream& operator<<(std::ostream& os, DatabaseUsuarios& db) {
   }
   os << std::endl;
   return os;
+}
+
+
+void DatabaseUsuarios::LeerElementos() {
+  if (!this->input_stream_.is_open()) {
+    std::cerr << "Error opening the file!" << std::endl; 
+    return; 
+  } 
+  std::string linea; 
+  while (std::getline(this->input_stream_, linea)) { 
+    Usuario nuevo(linea);
+    this->usuarios_.push_back(nuevo);
+  } 
+  return;
 }

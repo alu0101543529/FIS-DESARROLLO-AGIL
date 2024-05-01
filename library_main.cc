@@ -11,27 +11,23 @@
   */
 
 #include <iostream>
-#include "usuario.h"
 #include "tools.h"
-#include "database.h"
-#include "database_libros.h"
-#include "libro.h"
 
 int main() {
   std::ofstream salida_usuario("bbdd_usuarios.info", std::ios::app);
   std::ifstream entrada_usuario("bbdd_usuarios.info");
-  std::ofstream salida_reserva("bbdd_reservas.info", std::ios::app);
-  std::ifstream entrada_reserva("bbdd_reservas.info");
-  std::ofstream salida_libros("catalogo.info", std::ios::app);
-  std::ifstream entrada_libros("catalogo.info");
-  Database datos(entrada_usuario);
-  DatabaseLibros catalogo(entrada_libros);
+  // std::ofstream salida_reserva("bbdd_reservas.info", std::ios::app);
+  // std::ifstream entrada_reserva("bbdd_reservas.info");
+  // std::ofstream salida_libros("catalogo.info", std::ios::app);
+  // std::ifstream entrada_libros("catalogo.info");
+  DatabaseUsuarios datos_usuarios(entrada_usuario, salida_usuario);
+  // DatabaseLibros catalogo(entrada_libros);
   bool sesion_iniciada = false;
   std::string tipo_usuario{""};
-  if (!GestionarInicioSesion(datos, tipo_usuario, sesion_iniciada)) {
+  if (!GestionarInicioSesion(datos_usuarios, tipo_usuario, sesion_iniciada)) {
     return EXIT_SUCCESS; // Elegimos salir
   }
-  // Ya deberíamos saber si se pudo iniciar sesión, y qué tipo de usuario es
+  // Ya deberíamos saber si se pudo iniciar sesión, y qué tipo de usuario es.
   if (sesion_iniciada) {
     std::cout << "Sesión iniciada como " << tipo_usuario << ".\n"; 
     int opcion{-1};
@@ -57,7 +53,7 @@ int main() {
           /* code */
           break;
         case 4:
-          std::cout << catalogo;
+          // std::cout << catalogo;
           break;
         default:
           break;
@@ -74,6 +70,7 @@ int main() {
       std::exit(1);
     }
   }
+  datos_usuarios.WriteFile();
   std::cout << "Sesión cerrada.\n";
   std::cout << "FIN\n";
   return 0;

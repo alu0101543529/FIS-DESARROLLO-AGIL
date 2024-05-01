@@ -12,19 +12,28 @@
 #pragma once
 
 #include "database.h"
+#include "usuario.h"
 
 class DatabaseUsuarios : public Database {
  public:
-  DatabaseUsuarios(std::ifstream& input);
+
+  std::vector<Usuario> usuarios() const { return this->usuarios_; }
+  
+  DatabaseUsuarios(std::ifstream& input, std::ofstream& output);
 
   int BuscarElemento(std::string& nombre_elemento);
 
-  void AgregarElemento();
+  bool AgregarElemento();
 
   void EliminarElemento();
+
+  bool IniciarSesion(std::string& tipo_usuario);
+
+  void WriteFile();
 
   friend std::ostream& operator<<(std::ostream& os, DatabaseUsuarios& db);
 
  private:
+  void LeerElementos();
   std::vector<Usuario> usuarios_;
 };
