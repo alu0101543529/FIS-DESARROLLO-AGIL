@@ -14,6 +14,9 @@
 #include "database.h"
 #include "usuario.h"
 
+std::string DescifrarCesar(const std::string&, int);
+std::string CifrarCesar(const std::string&, int);  
+
 class DatabaseUsuarios : public Database {
  public:
 
