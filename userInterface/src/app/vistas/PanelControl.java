@@ -104,7 +104,7 @@ public class PanelControl extends JPanel {
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
     add(scrollPane, BorderLayout.CENTER);
-		Parser parser = new Parser("catalogo.info");
+		Parser parser = new Parser("bbdd_storage/catalogo.info");
 		List<Libro> libros = parser.parse();
 		//
 
