@@ -1,4 +1,4 @@
-# FIS-DESARROLLO-AGIL
+# FIS-DESARROLLO-AGIL XE-04
 
 Código fuente del software encargado de la gestión y administración de la red bibliotecaria que hemos diseñado en semanas anteriores.
 
@@ -8,12 +8,12 @@ En este código se desarrollará e implementarán los elementos correspondientes
 
 - Compilación con fichero **[Makefile](Makefile/)** (situado en carpeta raíz del proyecto).
 
-## PRUEBAS DE VALIDACIÓN A EJECUTAR: 
+## PRUEBAS DE VALIDACIÓN A EJECUTAR PARA SEGUNDA ENTREGA: 
 
 - Creación satisfactoria y registro de usuario.
-- Inicio de sesión del usuario una vez creada la cuenta
-- Mostrar catálogo de libros al usuario
-- Búsqueda de reserva por usuario y ejemplar.
+- Inicio de sesión del usuario una vez creada la cuenta.
+- Mostrar catálogo de libros al usuario.
+
 
 ## Explicación código fuente:
 
